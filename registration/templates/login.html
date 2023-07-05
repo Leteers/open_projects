@@ -3,15 +3,21 @@
     <meta charset="UTF-8">
 </head>
 <body>
+    {% if error == 'success' %}
+    <h1>Вы успешно зарегистрированы!</h1>
+    {% endif %}
     <h1>Войдите в свой аккаунт</h1>
-    <form method="post" action="">
+    <form method="post" action="login">
         <h3>Логин</h3>
         <input type="text" name="login">
         <h3>Пароль</h3>
-        <input type="text" name="password">
+        <input type="password" name="password">
         <button type="submit"> Войти</button>
     </form>
     <form method="get"  action="register">
         <button type="submit">Зарегистрироваться</button>
     </form>
+    {% if error == 'wrong' %}
+    <h3>Неверное имя пользователя или пароль</h3>
+    {% endif %}
 </body>

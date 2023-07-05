@@ -1,15 +1,32 @@
 import sqlite3
 import pandas as pd
 
-# connection = sqlite3.connect("prod.db")
-# cursor =connection.cursor()
-# cursor.execute('''create table if not exists users(id integer PRIMARY KEY, winner TEXT, moves_amount INTEGER, position TEXT)''')
-# cursor.execute('''create table if not exists game_instance(id integer PRIMARY KEY, '1' TEXT, '2' TEXT, '3' TEXT,  '4' TEXT, '5' TEXT, '6' TEXT, '7' TEXT, '8' TEXT, '9' TEXT)''')
-
 class Connection:
     def __init__(self):
         self.connection = sqlite3.connect("prod.db")
         self.cursor = self.connection.cursor()
+    def create_user(self,login, password):
+        self.cursor.execute(f'''SELECT * FROM users WHERE login='{login}'; ''')
+        lst=self.cursor.fetchall()
+        if lst:
+            return('userexists')
+        elif len(password) < 7 :
+            return('plen')
+        else:
+            self.cursor.execute(f'''INSERT INTO users(login,password) VALUES ('{login}','{password}');''')
+            self.connection.commit()
+            return(True)
+        
+    def check_auth(self,login,password):
+        self.cursor.execute(f'''SELECT * FROM users WHERE login='{login}'; ''')
+        lst=self.cursor.fetchall()
+        if lst:
+            if password == lst[0][2]:
+                return(True)
+            else:
+                return(False)
+        else:
+            return(False)
 if __name__ == "__main__":
     conn=Connection()
-    conn.cursor.execute('''CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY, login TEXT, password TEXT)''')    
+    conn.cursor.execute('''CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY, login TEXT, password TEXT);''')    
