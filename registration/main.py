@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from typing import Union
 from lib import database
 import starlette.status as status
+import uvicorn
 # ! - проверить
 
 '''
@@ -60,3 +61,6 @@ async def registration_post(request: Request, login: str = Form(), password: str
 @app.get('/home',response_class=HTMLResponse)
 async def home_page_get(request: Request, login : str = Cookie(None)):
     return templates.TemplateResponse('/home_page.html',{'request':request})
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="37.140.192.188", port=8000, reload=True)
