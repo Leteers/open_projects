@@ -94,3 +94,30 @@ function preventSelection(element) {
 }
 
 preventSelection(document);
+
+
+
+window.ontouchstart= e => {
+    track.dataset.mouseDownAt = e.clientX;
+}
+window.ontouchmove = e => {
+
+    if (track.dataset.mouseDownAt === "0") return;
+    const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX, maxDelta = window.innerWidth / 2;
+    let percentage = (mouseDelta / maxDelta) * -100, nextPercentage = parseFloat(track.dataset.prevPercentage) + percentage;
+    nextPercentage = Math.min(nextPercentage, 0);
+    nextPercentage = Math.max(nextPercentage, -100);
+    track.dataset.percentage = nextPercentage;
+    track.animate({ transform: `translate(${nextPercentage}%,-50% )` }, { duration: 1200, fill: "forwards" });
+    for (const image of track.getElementsByClassName("image")) {
+        image.animate({ objectPosition: `${nextPercentage + 100}% 50%` }, { duration: 1200, fill: "forwards" });
+    }
+    text_begining.style.opacity = `${nextPercentage * 2 + 100}%`;
+    ending_text.style.opacity = `${-nextPercentage * 2 - 100}%`;
+}
+
+window.ontouchend = () => {
+    track.dataset.mouseDownAt = "0"
+    track.dataset.prevPercentage = track.dataset.percentage;
+    console.log(track.dataset.percentage);
+}

@@ -1,72 +1,70 @@
-#square1_1{
-    width: 40vmin;
-    height: 40vmin;
-    display: inline-block;
-    border: 1px solid;
-    margin-left: 0vmin;
-
-}
-#square1_2{
-    width: 40vmin;
-    height: 40vmin;
-    display: inline-block;
-    border: 1px solid;
-    margin-left: 0vmin;
-
-}
-#square1_3{
-    width: 40vmin;
-    height: 40vmin;
-    display: inline-block;
-    border: 1px solid;
-    margin-left: 0vmin;
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#square1_4{
-    width: 40vmin;
-    height: 40vmin;
-    border: 1px solid;
-    margin-left: 40vmin;
-    display: inline-block;
-}
-#square1_5{
-    width: 40vmin;
-    height: 40vmin;
-    display: inline-block;
-    border: 1px solid;
-    margin-left: 0vmin;
-
-}
-#square1_6{
-    width: 40vmin;
-    height: 40vmin;
-    display: inline-block;
-    border: 1px solid;
-    margin-left: 0vmin;
+#playfield{
+    display: grid;
+    gap: 1vmin;
+    grid-template-columns: repeat(3,20vmin);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    justify-content: center;
 }
 
-#square1_7{
-    width: 40vmin;
-    height: 40vmin;
-    display: inline-block;
+#square1_1 {
+    width: 20vmin;
+    height: 20vmin;
     border: 1px solid;
-    margin-left: 40vmin;
+}
 
-}
-#square1_9{
-    width: 40vmin;
-    height: 40vmin;
-    display: inline-block;
+#square1_2 {
+    width: 20vmin;
+    height: 20vmin;
     border: 1px solid;
-    margin-left: 0vmin;
 }
-#square1_8{
-    width: 40vmin;
-    height: 40vmin;
-    display: inline-block;
+
+#square1_3 {
+    width: 20vmin;
+    height: 20vmin;
     border: 1px solid;
-    margin-left: 0vmin;
+}
+
+#square1_4 {
+    width: 20vmin;
+    height: 20vmin;
+    border: 1px solid;
+}
+
+#square1_5 {
+    width: 20vmin;
+    height: 20vmin;
+    border: 1px solid;
+}
+
+#square1_6 {
+    width: 20vmin;
+    height: 20vmin;
+    border: 1px solid;
+}
+
+#square1_7 {
+    width: 20vmin;
+    height: 20vmin;
+    border: 1px solid;
+}
+
+#square1_9 {
+    width: 20vmin;
+    height: 20vmin;
+    border: 1px solid;
+}
+
+#square1_8 {
+    width: 20vmin;
+    height: 20vmin;
+    border: 1px solid;
 }
 #square {
     width: 120px;
@@ -74,22 +72,28 @@
     background: #f447ff;
 }
 
+[id^="square1_"] {
+    background-color: skyblue;
+    display: grid;
+    place-items: center center;
+}
+
 p {
     animation-duration: 3s;
     animation-name: slidein;
     animation-iteration-count: infinite;
-  }
-  
-  @keyframes slidein {
+}
+
+@keyframes slidein {
     from {
-      margin-left: 0%;
-      width: 100%;
-      opacity: 0;
+        margin-left: 0%;
+        width: 100%;
+        opacity: 0;
     }
-  
+
     to {
-      margin-left: 0%;
-      width: 100%;
-      opacity: 1;
+        margin-left: 0%;
+        width: 100%;
+        opacity: 1;
     }
-  }
+}
