@@ -5,3 +5,44 @@ body{
     margin: 0rem;
     overflow: hidden;
 }
+#image-track > .image{
+    width: 40vmin;
+    height: 56vmin;
+    object-fit: cover;
+    object-position: 100% center;
+}
+#image-track{
+    display: flex;
+    gap: 4vmin;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(0%,-50%);
+}
+#Text_holder{
+    margin-top: -20vh;
+}
+
+#begining_text{
+    color: aliceblue; 
+    font-size: 20vh; 
+    font-family: 'Lobster-Regular';
+}
+
+#ending_text{
+    position: absolute;
+    left: 60%;
+    top: -20%;
+    opacity: 0%;
+}
+.text{
+    color: aliceblue; 
+    font-size: 20vh; 
+    font-family: 'Lobster-Regular';
+}
+
+@font-face {
+	font-family: 'Lobster-Regular'; 
+	src: local('Lobster-Regular'),
+		url(./Lobster-Regular.ttf); 
+}
