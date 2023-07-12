@@ -21,3 +21,7 @@ app.mount("/scripts",StaticFiles(directory="scripts"), name="scripts")
 @app.get("/", response_class=HTMLResponse)
 async def start_page_get(request: Request):
     return templates.TemplateResponse('index.html', {'request': request})
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="37.140.192.188", port=5000, reload=True)
