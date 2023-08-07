@@ -1,0 +1,186 @@
+@import 'style-reset';
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+$font-family-main: 'Lato', sans-serif;
+$main-color: #2E3641;
+$second-color: #9EB2C0;
+$third-color: #DAE4EB;
+$main-border-color: #F2E3DF;
+$second-border-color: #454F5C;
+$color-white: #FFFFFF;
+
+$landscape: "only screen and (orientation: landscape)";
+$up1024-landscape: "only screen and (min-width: 1025px) and (orientation: landscape)";
+
+@mixin display-flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+@mixin flex-direction-row {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+@mixin border-left ($color) {
+    border-left: 1px solid $color;
+}
+@mixin border-right ($color) {
+    border-right: 1px solid $color;
+}
+@mixin view-todo ($color) {
+    @include display-flex;
+    @include flex-direction-row;
+    background-color: $color;
+}
+
+* {
+     box-sizing: border-box;
+}
+html {
+    font-size: 10px;
+}
+body {
+    height: 100%;
+    font-family: $font-family-main;
+    background-color: #E9F0F4;
+    font-size: 1.6rem;
+    line-height: auto;
+}
+main {
+    text-align: center;
+    padding: 20% 5%;
+    @media #{$landscape} {
+        padding: 10% 5%;
+    }
+    @media #{$up1024-landscape} {
+        padding: 10% 30%;
+    }
+    .page-header {
+        @include view-todo ($main-color);
+        span {
+            @include border-right ($second-border-color);
+            padding: 18px 14.5px;
+            margin-right: 3px;
+        }
+        h1 {
+            color: $third-color;
+            padding: 10px 8px;
+            text-align: left;
+            @include border-left ($second-border-color);
+        }
+    }
+    .tasks {
+        .single-task {
+            font-size: 1.4rem;
+            position: relative;
+            @include view-todo ($color-white);
+            border-bottom: 1px solid #E6EBED;
+            cursor: move;
+            will-change: transform;
+            transition: all 200ms;
+            &.over {
+                transform: scale(1.1, 1.1);
+            }
+            span {
+                @include border-right ($main-border-color);
+                padding: 18px 14.5px;
+                margin-right: 3px;
+            }
+            button {
+                background: none;
+                border: none;
+                position: absolute;
+                right: 12px;
+                top: 11px;
+            }
+            input[type=checkbox] {
+                display: none;
+            }
+            .description {
+                color: $main-color;
+                padding: 10px 8px;
+                text-align: left;
+                @include border-left ($main-border-color);
+                cursor: pointer;
+                display: inline-block;
+                &:before {
+                    content: '';
+                    position: absolute;
+                    border: 1px solid $third-color;
+                    width: 7px;
+                    height: 8px;
+                    top: 14px;
+                    left: 9.5px;
+                }
+            }
+            input[type=checkbox]:checked + .description:before {
+                content: "\2714";
+                font-weight: bold;
+                color: #A8BD59;
+                font-size: 0.85rem;
+            }
+            input[type="checkbox"] {
+                &:checked + label {
+                    text-decoration: line-through;
+                    color: $second-color;
+                }
+                &:checked ~ button {
+                    opacity: 0.4;
+                }
+            }
+        }
+    }
+    .add-panel {
+        position: relative;        
+        @include view-todo ($color-white);
+        .add-task {
+            color: $second-color;
+            background: none;
+            border: none;
+            @include border-right ($main-border-color);
+            padding: 9px 8.5px;
+            margin-right: 3px;
+            cursor: pointer;
+            transition: all 0.30s ease-in-out;
+            &:hover {
+                color: $main-color;
+            }
+        }
+        #input-task {
+            width: 100%;
+            border: none;
+            @include border-left ($main-border-color);
+            padding: 10px 8px;
+            transition: all 0.30s ease-in-out;
+            font-family: $font-family-main;
+            &:focus {
+                outline: none;
+                box-shadow: 2px 6px 41px -12px rgba(47,48,51,1);
+            }
+        }
+        .error {
+            display: none;
+            &.wrong-input {
+                display: block;
+                position: absolute;
+                top: 50px;
+                left: 20px;
+                width: 90%;
+                color: $color-white;
+                text-align: center;
+                font-style: italic;
+                background-color: #A60D06;
+                border: 1px solid #601515;
+                box-shadow: 0px 0px 24px -2px rgba(0,0,0,0.75);
+                border-radius: 5px;
+                padding: 10px;
+            }
+        }
+        ::-webkit-input-placeholder {
+            opacity: 0.7;
+            font-style: italic;
+        } 
+    }
+}
