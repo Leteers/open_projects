@@ -1,2 +1,2 @@
 /lib/encoder.py
-prod.db
+*.db

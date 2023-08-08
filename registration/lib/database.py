@@ -1,11 +1,12 @@
 import sqlite3
 import pandas as pd
-
+import encoder as enc
 class Connection:
     def __init__(self):
         self.connection = sqlite3.connect("prod.db")
         self.cursor = self.connection.cursor()
     def create_user(self,login, password):
+        login=enc.encoding(str(login))
         self.cursor.execute(f'''SELECT * FROM users WHERE login='{login}'; ''')
         lst=self.cursor.fetchall()
         if lst:
@@ -29,4 +30,6 @@ class Connection:
             return(False)
 if __name__ == "__main__":
     conn=Connection()
-    conn.cursor.execute('''CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY, login TEXT, password TEXT);''')    
+    conn.cursor.execute('''SELECT COUNT(*) FROM users;''')
+    print(conn.cursor.fetchall())
+    # conn.cursor.execute('''CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY, login TEXT, password TEXT);''')    

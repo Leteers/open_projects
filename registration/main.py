@@ -27,7 +27,7 @@ async def login_post(request: Request, login: str = Form(), password: str = Form
     conn = database.Connection()
     if(conn.check_auth(login, password)):
         response = RedirectResponse('/home', status_code=302)
-        response.set_cookie(key='login',value='login')
+        response.set_cookie(key='login',value=login)
         return response
     else:
         return templates.TemplateResponse('/login.html', context={'request': request, 'error': 'wrong'})
@@ -60,6 +60,7 @@ async def registration_post(request: Request, login: str = Form(), password: str
 
 @app.get('/home',response_class=HTMLResponse)
 async def home_page_get(request: Request, login : str = Cookie(None)):
+    print(login)
     return templates.TemplateResponse('/home_page.html',{'request':request})
 
 if __name__ == "__main__":
