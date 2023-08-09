@@ -1,7 +1,6 @@
 const button = document.getElementById("theButton")
 const data = document.getElementById("info")
 const text_field = document.getElementById("text_field")
-var time = time.time()
 button.onclick= function(){
     let cars ={"text":text_field.value,"stat" : "new"}
     console.log(cars)
