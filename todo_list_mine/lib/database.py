@@ -37,7 +37,18 @@ class Connection:
         self.cursor.execute(f'''SELECT id FROM users WHERE login="{login}";''')
         return(self.cursor.fetchall()[0][0])
     
+    def insert_to_do(self,user_id,text,status):
+        self.cursor.execute(f'''INSERT INTO todos(user_id,content,status) VALUES ({user_id},"{text}","{status}");''')
+        self.connection.commit()
+
+    def get_to_dos(self,user_id):
+        self.cursor.execute(f'''SELECT * FROM todos WHERE status <>"closed" and user_id = {user_id};''')
+        return(self.cursor.fetchall())
+
+
 if __name__ == "__main__":
     conn=Connection()
-    conn.cursor.execute('''CREATE TABLE IF NOT EXISTS todos(id integer PRIMARY KEY, user_id INT, content TEXT, status TEXT)''')
-    # conn.cursor.execute('''CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY, login TEXT, password TEXT);''')    
+    
+    # conn.cursor.execute('''CREATE TABLE IF NOT EXISTS todos(id integer PRIMARY KEY, user_id INT, content TEXT, status TEXT)''')
+    # conn.cursor.execute('''DROP TABLE users;''')
+    # conn.cursor.execute('''CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY, login TEXT, password TEXT, status TEXT);''')    
