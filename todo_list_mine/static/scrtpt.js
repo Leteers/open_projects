@@ -4,7 +4,7 @@ const text_field = document.getElementById("text_field")
 button.onclick= function(){
     let cars ={"text":text_field.value,"stat" : "new"}
     console.log(cars)
-    fetch("http://127.0.0.1:8000/receiver", 
+    fetch("http://37.140.192.188:8000/receiver", 
         {
             method: 'POST',
             headers: {
