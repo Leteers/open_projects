@@ -70,6 +70,7 @@ async def home_page_get(request: Request, login : str = Cookie(None)):
     print(login)
     print(conn.search_user_id(login))
     print(conn.get_to_dos(conn.search_user_id(login)))
+    print(conn.select_all())
     return templates.TemplateResponse('/home_page.html',context={'request':request,'todos':conn.get_to_dos(conn.search_user_id(login))})
 
 
