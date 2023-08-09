@@ -45,6 +45,10 @@ class Connection:
         self.cursor.execute(f'''SELECT * FROM todos WHERE status <>"closed" and user_id = {user_id};''')
         return(self.cursor.fetchall())
 
+    def select_all(self):
+        self.cursor.execute('''SELECT * FROM todos;''')
+        return(self.cursor.fetchall())
+    
 
 if __name__ == "__main__":
     conn=Connection()
