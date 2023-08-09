@@ -67,6 +67,7 @@ async def registration_post(request: Request, login: str = Form(), password: str
 @app.get('/home',response_class=HTMLResponse)
 async def home_page_get(request: Request, login : str = Cookie(None)):
     conn = database.Connection()
+    print(conn.get_to_dos(conn.search_user_id(login)))
     return templates.TemplateResponse('/home_page.html',context={'request':request,'todos':conn.get_to_dos(conn.search_user_id(login))})
 
 
