@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <div id="todo">
         <h1>To Do List</h1>
     </div>
@@ -14,8 +15,9 @@
     <ul id='todos_ul'>
         {% for i in todos%}
         <li class="todos_li">
-            <h3 class="todos_li_text">{{ i[2] }}</h3>
-            <input type="button" class="todos_li_delete_button">Send</input>
+            <h3 class="todos_text" id={{i[0]}}>{{ i[2] }}</h3>
+            <input type="button" class ="todos_done"  id="todos_li_done_button_{{i[0]}}" value="Mark Done">
+            <input type="button" class ="todos_change" id="todos_li_change_button_{{i[0]}}" value="Change">
         </li>
         {% endfor %}
     </ul>
