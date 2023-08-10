@@ -3,14 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <div id ="todo"><h1>To Do List</h1></div>
+    <div id="todo">
+        <h1>To Do List</h1>
+    </div>
 </head>
 
 <body>
-    <input type="text" id = 'text_field'></input>
+    <input type="text" id='text_field'></input>
     <button id="theButton">Post to Python</button>
-    {% for i in todos%}
-    <li id = "todos_li">{{ i[2] }}</li>
-    {% endfor %}
+    <ul id='todos_ul'>
+        {% for i in todos%}
+        <li class="todos_li">
+            <h3 class="todos_li_text">{{ i[2] }}</h3>
+            <input type="button" class="todos_li_delete_button">Send</input>
+        </li>
+        {% endfor %}
+    </ul>
     <script src="../static/scrtpt.js"></script>
 </body>

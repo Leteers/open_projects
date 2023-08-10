@@ -44,9 +44,13 @@ class Connection:
     def get_to_dos(self,user_id):
         self.cursor.execute(f'''SELECT * FROM todos WHERE status <>"closed" and user_id = {user_id};''')
         return(self.cursor.fetchall())
-
+    
+    def update_to_do_status(self,user_id,text):
+        self.cursor.execute(f'''UPDATE todos SET status="closed" WHERE content="{text}" and user_id = {user_id}''')
+        self.connection.commit()
+        
     def select_all(self):
-        self.cursor.execute('''SELECT * FROM todos;''')
+        self.cursor.execute('''SELECT count(*) FROM todos;''')
         return(self.cursor.fetchall())
     
 
