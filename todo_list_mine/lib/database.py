@@ -58,6 +58,6 @@ class Connection:
 if __name__ == "__main__":
     conn=Connection()
     
-    # conn.cursor.execute('''CREATE TABLE IF NOT EXISTS todos(id integer PRIMARY KEY, user_id INT, content TEXT, status TEXT)''')
+    conn.cursor.execute('''CREATE TABLE IF NOT EXISTS todos(id integer PRIMARY KEY, user_id INT, content TEXT, status TEXT)''')
     # conn.cursor.execute('''DROP TABLE users;''')
-    # conn.cursor.execute('''CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY, login TEXT, password TEXT, status TEXT);''')    
+    conn.cursor.execute('''CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY, login TEXT, password TEXT, status TEXT);''')    
