@@ -74,7 +74,12 @@ async def home_page_get(request: Request, login : str = Cookie(None)):
 async def postME(payload: Dict[Any, Any], user_id: str = Cookie(None)):
 #    data = jsonify(data)
     conn = database.Connection()
-    conn.insert_to_do(user_id,payload["text"],payload["stat"])
-    return payload
+    if payload['stat']=='new':
+        a=conn.insert_to_do(user_id,payload["text"],payload["stat"])
+        return a[0]
+    elif payload['stat']=='done':
+        conn.update_to_do_status_to_close(payload['id'])
+    else:
+        pass
 if __name__ == "__main__":
     uvicorn.run("main:app", host="37.140.192.188", port=8000, reload=True)

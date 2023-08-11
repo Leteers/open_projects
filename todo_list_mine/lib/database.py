@@ -40,7 +40,7 @@ class Connection:
     def insert_to_do(self,user_id,text,status):
         self.cursor.execute(f'''INSERT INTO todos(user_id,content,status) VALUES ({user_id},"{text}","{status}");''')
         self.connection.commit()
-
+        return(self.select_all())
     def get_to_dos(self,user_id):
         self.cursor.execute(f'''SELECT * FROM todos WHERE status <>"closed" and user_id = {user_id};''')
         return(self.cursor.fetchall())

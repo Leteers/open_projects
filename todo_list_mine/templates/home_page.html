@@ -21,8 +21,8 @@
     <div id='ul_div'>
         <ul class='todos_ul' id="todos_ul">
             {% for i in todos%}
-            <li class="todos_li" id>
-                <h3 class="todos_text" id={{i[0]}}>{{ i[2] }}</h3>
+            <li class="todos_li" id="todos_li_{{i[0]}}">
+                <input type="text" class="todos_text" id={{i[0]}} value="{{ i[2] }}" readonly>
                 <input type="button" class="btn btn-secondary" id="todos_li_done_button_{{i[0]}}" value="Mark Done">
                 <input type="button" class="btn btn-secondary" id="todos_li_change_button_{{i[0]}}" value="Change">
             </li>
