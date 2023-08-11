@@ -16,7 +16,6 @@ function check_if_button(event) {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
-                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(result)
             }).then(res => {
@@ -37,7 +36,6 @@ function check_if_button(event) {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
-                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(result)
             }).then(res => {
@@ -59,7 +57,6 @@ add_button.onclick = async function () {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                'Accept': 'application/json'
             },
             body: JSON.stringify(result)
         }).then((response) => {

@@ -45,10 +45,45 @@
     max-width: 100%;
 }
 
-/* :root{
-    background-color: #172514;
-
+ :root{
+    background-color:  hsla(var(--b1)/var(--tw-bg-opacity,1)) !important;
+    color : hsla(var(--bc)/var(--tw-text-opacity,1)) !important;
+    --p: 262 80% 50%;
+    --pf: 262 80% 40%;
+    --sf: 316 70% 40%;
+    --af: 175 70% 33%;
+    --in: 198 93% 60%;
+    --su: 158 64% 52%;
+    --wa: 43 96% 56%;
+    --er: 0 91% 71%;
+    --inc: 198 100% 12%;
+    --suc: 158 100% 10%;
+    --wac: 43 100% 11%;
+    --erc: 0 100% 14%;
+    --rounded-box: 1rem;
+    --rounded-btn: .5rem;
+    --rounded-badge: 1.9rem;
+    --animation-btn: .25s;
+    --animation-input: .2s;
+    --btn-text-case: uppercase;
+    --btn-focus-scale: .95;
+    --border-btn: 1px;
+    --tab-border: 1px;
+    --tab-radius: .5rem;
+    --pc: 0 0% 100%;
+    --s: 316 70% 50%;
+    --sc: 0 0% 100%;
+    --a: 175 70% 41%;
+    --ac: 0 0% 100%;
+    --n: 218 18% 12%;
+    --nf: 223 17% 8%;
+    --nc: 220 13% 69%;
+    --b1: 220 18% 20% !important;
+    --b2: 220 17% 17%;
+    --b3: 219 18% 15%;
+    --bc: 220 13% 69% !important;
 }
+/*
 .btn-secondary{
     color: #94d7ff;
     background-color: #94d7ff;
