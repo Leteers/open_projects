@@ -11,7 +11,7 @@ function check_if_button(event) {
         str = target.id
         let id = str.slice(str.lastIndexOf('_') + 1);
         let result = { "id": id, "stat": "done" }
-        fetch("http://feldbush.su:8000/receiver",
+        fetch("/receiver",
             {
                 method: 'POST',
                 headers: {
@@ -31,7 +31,7 @@ function check_if_button(event) {
         str = target.id
         let id = str.slice(str.lastIndexOf('_') + 1);
         let result = { "id": id, "stat": "change" }
-        fetch("http://feldbush.su:8000/receiver",
+        fetch("/receiver",
             {
                 method: 'POST',
                 headers: {
@@ -52,7 +52,7 @@ function check_if_button(event) {
 
 add_button.onclick = async function () {
     let result = { "text": text_field.value, "stat": "new" }
-    await fetch("http://feldbush.su:8000/receiver",
+    await fetch("/receiver",
         {
             method: 'POST',
             headers: {
