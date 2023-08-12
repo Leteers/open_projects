@@ -30,7 +30,9 @@ function check_if_button(event) {
         str = target.id
         let id = str.slice(str.lastIndexOf('_') + 1);
         document.getElementById(id).removeAttribute('readonly')
+        console.log(document.getElementById(id))
         document.getElementById(id).select();
+        document.getElementById(id).style.color="red";
         document.getElementById(id).addEventListener('keypress', function (e) {
             var key = e.which || e.keyCode;
             if (key === 13) { // код клавиши Enter
