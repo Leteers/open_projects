@@ -1,19 +1,30 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset="UTF-8">
-    <h1>Для игры необходимо создать аккаунт</h1>
+    <link href="../static/style.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.18.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
-    <form method="post" action="registr_success">
-        <h3>Логин</h3>
-        <input type="text" name="login">
-        <h3>Пароль</h3>
-        <input type="password" name="password">
-        <button type="submit">Зарегистрировать</button>
-    </form>
-    {% if error == 'userexists' %}
-    <h3>Пользователь с таким именем уже существует</h3>
-    {% elif error == 'plen' %}
-    <h3>Пароль должен быть длиннее 7 символов</h3>
-    {% endif %}
+    <div class="container">
+        <h1>Create an account to use site</h1>
+        <div class="header">
+            <form method="post" action="registr_success">
+                <h3>Login</h3>
+                <input type="text" name="login" class="input input-bordered input-secondary w-full max-w-xs">
+                <h3>Password</h3>
+                <input type="password" name="password" class="input input-bordered input-secondary w-full max-w-xs">
+                <button type="submit" class="btn btn-secondary sbmt-btn">Register</button>
+            </form>
+            {% if error == 'userexists' %}
+            <h1 class="Error">User exists</h1>
+            {% elif error == 'plen' %}
+            <h1 class="Error">Password length must contain at least 7 symbols</h1>
+            {% endif %}
+        </div>
+    </div>
 </body>

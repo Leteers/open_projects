@@ -145,6 +145,18 @@ li .todos_text{
     --b3: 219 18% 15%;
     --bc: 220 13% 69% !important;
 }
+
+.sbmt-btn{
+    margin: 5px;
+}
+
+.rgstr-btn{
+    margin: 5px;
+}
+
+.Error{
+    color: red !important;
+}
 /*
 .btn-secondary{
     color: #94d7ff;

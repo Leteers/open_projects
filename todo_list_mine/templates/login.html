@@ -1,24 +1,35 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset="UTF-8">
-</head>
-<body>
-    {% if error == 'success' %}
-    <h1>Вы успешно зарегистрированы!</h1>
-    {% endif %}
-    {% if error == 'wrong' %}
-    <h3>Неверное имя пользователя или пароль</h3>
-    {% endif %}
-    <h1>Войдите в свой аккаунт</h1>
-    <form method="post" action="login">
-        <h3>Логин</h3>
-        <input type="text" name="login">
-        <h3>Пароль</h3>
-        <input type="password" name="password">
-        <button type="submit"> Войти</button>
-    </form>
-    <form method="get"  action="register">
-        <button type="submit">Зарегистрироваться</button>
-    </form>
+    <link href="../static/style.css" rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.18.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+
+            {% if error == 'success' %}
+            <h1>Registered successfully</h1>
+            {% endif %}
+            {% if error == 'wrong' %}
+            <h1 class="Error">Wrong login or password</h1>
+            {% endif %}
+            <h1>Log into your account</h1>
+            <form method="post" action="login">
+                <h3>Login</h3>
+                <input type="text" name="login" class="input input-bordered input-secondary w-full max-w-xs">
+                <h3>Password</h3>
+                <input type="password" name="password" class="input input-bordered input-secondary w-full max-w-xs">
+                <button type="submit" class="btn btn-secondary sbmt-btn">Enter</button>
+            </form>
+            <form method="get" action="register">
+                <button type="submit" class="btn btn-secondary rgstr-btn">Register</button>
+            </form>
+        </div>
+    </div>
 </body>
