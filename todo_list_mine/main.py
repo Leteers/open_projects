@@ -79,7 +79,8 @@ async def postME(payload: Dict[Any, Any], user_id: str = Cookie(None)):
         return a[0]
     elif payload['stat']=='done':
         conn.update_to_do_status_to_close(payload['id'])
-    else:
-        pass
+    elif payload['stat']=='change':
+        print(payload)
+        conn.update_to_do(payload['id'],payload['text'])        
 if __name__ == "__main__":
     uvicorn.run("main:app", host="37.140.192.188", port=8000, reload=True)

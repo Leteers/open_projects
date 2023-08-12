@@ -20,7 +20,6 @@ function check_if_button(event) {
                 body: JSON.stringify(result)
             }).then(res => {
                 if (res.ok) {
-                    console.log(res.value)
                 } else {
                     alert("something is wrong")
                 }
@@ -30,24 +29,28 @@ function check_if_button(event) {
     if (target.id.indexOf('todos_li_change_button') >= 0) {
         str = target.id
         let id = str.slice(str.lastIndexOf('_') + 1);
-        let result = { "id": id, "stat": "change" }
-        fetch("/receiver",
-            {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(result)
-            }).then(res => {
-                if (res.ok) {
-                    console.log(res.json())
-                } else {
-                    alert("something is wrong")
-                }
-            })
+        document.getElementById(id).removeAttribute('readonly')
+        document.getElementById(id).select();
+        document.getElementById(id).addEventListener('keypress', function (e) {
+            var key = e.which || e.keyCode;
+            if (key === 13) { // код клавиши Enter
+                let result = { "id": id, "stat": "change","text" : document.getElementById(id).value}
+                document.getElementById(id).setAttribute('readonly','true')
+                fetch("/receiver",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify(result)
+                }).then((data) => {
+                    number = data;
+                });
+            }
+        });
+        // 
     }
 }
-
 
 
 add_button.onclick = async function () {
@@ -64,7 +67,6 @@ add_button.onclick = async function () {
         })
         .then((data) => {
             number = data;
-            console.log(number)
         });
     var html = '<li class="todos_li" id="' + number + '"><input class="todos_text" value="' + text_field.value + '" readonly id="' + number + '"><input type="button" class="btn btn-secondary"  id="todos_li_done_button_' + number + '" value="Mark Done"><input type="button" class="btn btn-secondary" id="todos_li_change_button_' + number + '" value="Change"></li>'
     document.getElementById('todos_ul').innerHTML += html
