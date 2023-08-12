@@ -30,7 +30,6 @@ function check_if_button(event) {
         str = target.id
         let id = str.slice(str.lastIndexOf('_') + 1);
         document.getElementById(id).removeAttribute('readonly')
-        console.log(document.getElementById(id))
         document.getElementById(id).select();
         document.getElementById(id).style.color="red";
         document.getElementById(id).addEventListener('keypress', function (e) {
@@ -38,6 +37,7 @@ function check_if_button(event) {
             if (key === 13) { // код клавиши Enter
                 let result = { "id": id, "stat": "change","text" : document.getElementById(id).value}
                 document.getElementById(id).setAttribute('readonly','true')
+                document.getElementById(id).style.color= '#A6ADBA';
                 fetch("/receiver",
                 {
                     method: 'POST',
@@ -70,7 +70,7 @@ add_button.onclick = async function () {
         .then((data) => {
             number = data;
         });
-    var html = '<li class="todos_li" id="' + number + '"><input class="todos_text" value="' + text_field.value + '" readonly id="' + number + '"><input type="button" class="btn btn-secondary"  id="todos_li_done_button_' + number + '" value="Mark Done"><input type="button" class="btn btn-secondary" id="todos_li_change_button_' + number + '" value="Change"></li>'
+    var html = '<li class="todos_li" id="todos_li_' + number + '"><input class="todos_text" value="' + text_field.value + '" readonly id="' + number + '"><input type="button" class="btn btn-secondary"  id="todos_li_done_button_' + number + '" value="Mark Done"><input type="button" class="btn btn-secondary" id="todos_li_change_button_' + number + '" value="Change"></li>'
     document.getElementById('todos_ul').innerHTML += html
     text_field.value = ''
 }
