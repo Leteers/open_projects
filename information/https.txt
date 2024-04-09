@@ -1,0 +1,10 @@
+
+certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru --webroot --email fn11100@gmail.com --agree-tos --dry-run
+
+
+
+certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru --webroot --email fn11100@gmail.com --agree-tos --n 
+
+или
+
+certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru --webroot --email fn11100@gmail.com --agree-tos -n 
