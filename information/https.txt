@@ -1,4 +1,10 @@
 
+crontab -e
+
+https://www.inmotionhosting.com/support/website/ssl/lets-encrypt-ssl-ubuntu-with-certbot/
+
+0 0 1 */3 * certbot renew --force-renewal --quiet --post-hook "docker restart akademplast"
+
 certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru --webroot --email fn11100@gmail.com --agree-tos --dry-run
 
 
@@ -8,3 +14,4 @@ certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru
 или
 
 certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru --webroot --email fn11100@gmail.com --agree-tos -n 
+

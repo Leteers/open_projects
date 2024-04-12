@@ -1,0 +1,7 @@
+docker build -t akademplast .  
+
+docker save akademplast > new.tar
+
+scp new.tar root@79.174.86.217:~/
+
+ docker load < new.tar
