@@ -5,6 +5,9 @@ https://www.inmotionhosting.com/support/website/ssl/lets-encrypt-ssl-ubuntu-with
 
 0 0 1 */3 * certbot renew --force-renewal --quiet --post-hook "docker restart akademplast"
 
+
+DRY-RUN ЭТО ШТУКА ДЛЯ ПРОВЕРКИ.
+
 certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru --webroot --email fn11100@gmail.com --agree-tos --dry-run
 
 
@@ -15,3 +18,6 @@ certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru
 
 certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru --webroot --email fn11100@gmail.com --agree-tos -n 
 
+Прочитать т.к поможет с автоматическоим обновлением:
+
+https://community.letsencrypt.org/t/certificate-path/24227
