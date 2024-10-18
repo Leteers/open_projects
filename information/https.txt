@@ -10,14 +10,15 @@ DRY-RUN ЭТО ШТУКА ДЛЯ ПРОВЕРКИ.
 
 certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru --webroot --email fn11100@gmail.com --agree-tos --dry-run
 
-
-
-certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru --webroot --email fn11100@gmail.com --agree-tos --n 
-
-или
-
 certbot certonly -d akademplast.ru -d www.akademplast.ru -w /root/akademplast.ru --webroot --email fn11100@gmail.com --agree-tos -n 
 
 Прочитать т.к поможет с автоматическоим обновлением:
 
 https://community.letsencrypt.org/t/certificate-path/24227
+
+
+По шагам что делать:
+1.Выключить https_redirect.py и main.py
+2. Поменять порт на 80
+3. Включить main.py
+4. Проверить с помощью dry-run
