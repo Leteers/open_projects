@@ -1,0 +1,3 @@
+([('move_file',
+   '/Users/leteers/Desktop/development/open_projects/dima2/dist/move_file',
+   'EXECUTABLE')],)
