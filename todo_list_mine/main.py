@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
 
-from fastapi import FastAPI, Request, Form, Cookie
-from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
+from fastapi import FastAPI, Request, HTTPException, Request, Form, Cookie
+
+from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse, Response
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi import Body
@@ -70,6 +71,26 @@ async def home_page_get(request: Request, login : str = Cookie(None)):
     return templates.TemplateResponse('/home_page.html',context={'request':request,'todos':conn.get_to_dos(conn.search_user_id(login))})
 
 
+# @app.exception_handler(HTTPException)
+# async def custom_405_handler(request: Request, exc: HTTPException):
+#     if exc.status_code == 405:  # Method Not Allowed
+#         return RedirectResponse(url="/")  # Replace with your target URL
+#     return exc  # For other exceptions, return the default behavior
+
+
+@app.middleware("http")
+async def method_not_allowed_redirect(request: Request, call_next):
+    try:
+        response = await call_next(request)
+        # Check if the status is 405 and redirect
+        if response.status_code in [400,401,403,404,405,406,409,410,415,422,429,500,501,502,503,504]:
+            return RedirectResponse(url="/")  # Replace with the target URL
+        return response
+    except Exception as exc:
+        return Response(content=f"Unhandled exception: {exc}", status_code=500)
+
+
+
 @app.post('/receiver')
 async def postME(payload: Dict[Any, Any], user_id: str = Cookie(None)):
 #    data = jsonify(data)
@@ -81,7 +102,8 @@ async def postME(payload: Dict[Any, Any], user_id: str = Cookie(None)):
         conn.update_to_do_status_to_close(payload['id'])
     elif payload['stat']=='change':
         print(payload)
-        conn.update_to_do(payload['id'],payload['text'])        
+        conn.update_to_do(payload['id'],payload['text'])    
+
 if __name__ == "__main__":
     uvicorn.run("main:app", host="localhost", port=8001, reload=True)
 
