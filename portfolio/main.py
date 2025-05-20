@@ -24,4 +24,5 @@ async def start_page_get(request: Request):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="37.140.192.188", port=5000, reload=True)
+    # uvicorn.run("main:app", host="37.140.192.188", port=5000, reload=True)
+    uvicorn.run("main:app", host="localhost", port=5000, reload=True)
