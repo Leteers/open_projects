@@ -128,41 +128,41 @@ for i, (x, y) in enumerate(squares):
 # image.show()
 
 # # Переменная для отслеживания состояния клавиши
-# key_pressed = False
+key_pressed = False
 
 
-# def on_release(key):
-#     global key_pressed
-#     if key == keyboard.Key.esc:
-#         # Остановка слушателя при нажатии клавиши Escape
-#         return False
+def on_release(key):
+    global key_pressed
+    if key == keyboard.Key.esc:
+        # Остановка слушателя при нажатии клавиши Escape
+        return False
 
 
-# def on_press(key):
-#     global key_pressed
-#     try:
-#         if key.char == 'q':  # Пример действия при нажатии клавиши 'q'
-#             print("Key 'q' pressed")
-#             key_pressed = True
-#     except AttributeError:
-#         pass
+def on_press(key):
+    global key_pressed
+    try:
+        if key.char == 'q':  # Пример действия при нажатии клавиши 'q'
+            print("Key 'q' pressed")
+            key_pressed = True
+    except AttributeError:
+        pass
 
-# # Функция для запуска слушателя в отдельном потоке
-
-
-# def start_listener():
-#     with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
-#         listener.join()
+# Функция для запуска слушателя в отдельном потоке
 
 
-# # Запуск слушателя в отдельном потоке
-# listener_thread = threading.Thread(target=start_listener)
-# listener_thread.start()
+def start_listener():
+    with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
+        listener.join()
 
-# # Основная программа
 
-# # if __name__ == '__main__':
-# #     while True:
-# #         if key_pressed:
-# #             break
-# #         print(1)
+# Запуск слушателя в отдельном потоке
+listener_thread = threading.Thread(target=start_listener)
+listener_thread.start()
+
+# Основная программа
+
+if __name__ == '__main__':
+    while True:
+        if key_pressed:
+            break
+        print(1)
