@@ -22,3 +22,92 @@ https://community.letsencrypt.org/t/certificate-path/24227
 2. Поменять порт на 80
 3. Включить main.py
 4. Проверить с помощью dry-run
+
+Новая инструкция: 
+
+1) Сделать резервную копию текущих конфигов
+# создаём бэкап
+sudo cp -a /etc/nginx/sites-available /root/sites-available.backup
+sudo cp -a /etc/nginx/sites-enabled  /root/sites-enabled.backup
+
+# создаём папку для временно отключённых конфигов
+sudo mkdir -p /root/disabled-nginx-sites
+
+2) Найти и переместить все активные конфиги, которые упоминают akademplast.ru
+
+(это отключит их — мы не удаляем, а перемещаем в /root/disabled-nginx-sites)
+
+# покажет файлы в sites-enabled, в которых встречается akademplast.ru
+sudo grep -RIl "akademplast.ru" /etc/nginx/sites-enabled || true
+
+# переместим эти файлы (если такие есть) в /root/disabled-nginx-sites
+sudo grep -RIl "akademplast.ru" /etc/nginx/sites-enabled | while read -r f; do
+  echo "moving $f -> /root/disabled-nginx-sites/"
+  sudo mv "$f" /root/disabled-nginx-sites/
+done
+
+3) Создать минимальный тестовый конфиг (sites-available) и включить его
+sudo tee /etc/nginx/sites-available/test_certbot > /dev/null <<'EOF'
+server {
+    listen 80;
+    server_name akademplast.ru www.akademplast.ru;
+
+    # Обработка challenge-файлов
+    location ^~ /.well-known/acme-challenge/ {
+        alias /var/www/certbot/.well-known/acme-challenge/;
+        allow all;
+        default_type "text/plain";
+    }
+
+    # Всё остальное — простой ответ (без редиректов)
+    location / {
+        return 200 "OK from nginx\n";
+    }
+}
+EOF
+# включаем (создаём симлинк) в sites-enabled
+sudo ln -s /etc/nginx/sites-available/test_certbot /etc/nginx/sites-enabled/test_certbot
+
+4) Подготовить директорию для challenge и проверить права
+sudo mkdir -p /var/www/certbot
+sudo chown -R www-data:www-data /var/www/certbot
+sudo chmod 755 /var/www/certbot
+
+5) Проверить синтаксис nginx и перезагрузить
+sudo nginx -t
+# если OK, то перезагрузить
+sudo systemctl reload nginx
+
+6) Положить тестовый файл и проверить отдачу
+echo "hello" | sudo tee /var/www/certbot/test.txt
+
+# проверяем локально (желательно с хоста, но можно и внешне)
+curl -v http://akademplast.ru/.well-known/acme-challenge/test.txt
+
+# если DNS не указывает на этот хост или хочешь принудительно попасть в локальный nginx:
+curl -v --resolve akademplast.ru:80:127.0.0.1 http://akademplast.ru/.well-known/acme-challenge/test.txt
+
+7) Если тест успешен — запускаем certbot (webroot)
+
+sudo certbot certonly --webroot -w /var/www/certbot \
+  -d akademplast.ru -d www.akademplast.ru \
+  --email fn11100@gmail.com --agree-tos
+
+8) Восстановление старых конфигов (после успешного получения сертификата)
+
+Вернуть все перемещённые файлы обратно в sites-enabled:
+
+# вернуть все отключённые
+sudo mv /root/disabled-nginx-sites/* /etc/nginx/sites-enabled/ 2>/dev/null || true
+
+# или, если хочешь оставить test_certbot и вернуть только принятое:
+# sudo mv /root/disabled-nginx-sites/имя_файла /etc/nginx/sites-enabled/
+
+# проверить и перезагрузить
+sudo nginx -t && sudo systemctl reload nginx
+
+Если хочешь удалить временный test_certbot:
+
+sudo rm /etc/nginx/sites-enabled/test_certbot
+sudo rm /etc/nginx/sites-available/test_certbot
+sudo systemctl reload nginx
